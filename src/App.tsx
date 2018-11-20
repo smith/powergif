@@ -1,4 +1,6 @@
-import ApolloClient from "apollo-boost";
+import { ApolloClient } from "apollo-client";
+import { HttpLink } from "apollo-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
 import React, { useState } from "react";
 import { ApolloProvider } from "react-apollo";
 import { Search } from "./Search";
@@ -7,7 +9,11 @@ import { Detail } from "./Detail";
 import { GifId } from "./types";
 
 const client = new ApolloClient({
-  uri: "https://www.graphqlhub.com/graphql"
+  connectToDevTools: true,
+  cache: new InMemoryCache(),
+  link: new HttpLink({
+    uri: "https://www.graphqlhub.com/graphql"
+  })
 });
 
 export const App = () => {
